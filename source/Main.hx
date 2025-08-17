@@ -10,6 +10,10 @@ import flixel.FlxGame;
 import flixel.FlxState;
 
 import funkin.backend.DebugDisplay;
+#if android
+import android.content.Context;
+import android.os.Build;
+#end
 
 class Main extends Sprite
 {
@@ -61,11 +65,22 @@ class Main extends Sprite
 			FlxGame
 			#end(startMeta.width, startMeta.height, Init, startMeta.fps, startMeta.fps, true, startMeta.startFullScreen);
 			
-		// FlxG.game._customSoundTray wants just the class, it calls new from
-		// create() in there, which gets called when it's added to stage
-		// which is why it needs to be added before addChild(game) here
-		
-		// Also btw game has to be a variable for this to work ig - Orbyy
+		public function new()
+	{
+		super();
+
+		instance = this;
+
+		#if mobile
+		#if android
+		StorageUtil.requestPermissions();
+		#end
+		Sys.setCwd(StorageUtil.getStorageDirectory());
+		#end
+
+		CrashHandler.init();
+
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #endOrbyy
 		
 		@:privateAccess
 		game._customSoundTray = funkin.objects.FunkinSoundTray;
