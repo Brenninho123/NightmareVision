@@ -203,6 +203,12 @@ class FNFGame extends FlxGame
 			onCrash(e);
 		}
 	}
+
+	initTransition();
+		#if mobile
+		LimeSystem.allowScreenTimeout = Options.screenTimeOut;
+		#end
+}
 	
 	/**
 	 * Handles the `onEnterFrame` call and figures out how many updates and draw calls to do.
