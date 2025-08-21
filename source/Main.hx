@@ -10,6 +10,7 @@ import flixel.FlxGame;
 import flixel.FlxState;
 
 import funkin.backend.DebugDisplay;
+
 #if android
 import android.content.Context;
 import android.os.Build;
